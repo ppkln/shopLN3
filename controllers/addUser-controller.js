@@ -2,10 +2,10 @@ const bcrypt = require("bcryptjs")
 const users = require("../models/users")
     //สร้างfunctionเพิ่มผู้ใช้ ทิ้งไว้
     const createUser = async userObj =>{
-        //const hash = await bcrypt.hash(userObj.pws,5)
+        const hash = await bcrypt.hash(userObj.pws,10)
         let user = new users({
             username : userObj.username,
-            password : userObj.pws
+            password : hash
         })
         const data = await user.save()
         return data

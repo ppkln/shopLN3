@@ -9,11 +9,8 @@ const bcrypt = require("bcryptjs")
         if (!user){
             return {id:null, username:null, loginStatus:false}
         } else {
-            //const result = await bcrypt.compare(dataObj.pws,users.password)
-            const result  = await users.findOne({
-                username : dataObj.pws
-            })
-            return {id:users._id, username:users.username, loginStatus:true}
+            const result = await bcrypt.compare(dataObj.pws,user.password)
+            return {id:users._id, username:users.username, loginStatus:result}
         }
     }
     //สิ้นสุดคำสั่ง function ตรวจสอบข้อมูลผู้ใช้ในฐานข้อมูล

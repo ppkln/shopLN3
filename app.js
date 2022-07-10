@@ -8,8 +8,6 @@ const bodyParser = require("body-parser")
 const users = require("./models/users")
 const bcrypt = require("bcryptjs")
 
-
-
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(myRoute)
@@ -29,6 +27,14 @@ app.get("/logout",(req,res)=>{
         res.render("loginForm")
     })
 })
+
+//เพื่อเข้าดูข้อมูล session 
+app.get('/session', (req, res) => {
+    let sess = req.session
+    console.log(sess)
+    res.status(200).send("username = " + sess.username)
+  })
+//จบเพื่อเข้าดูข้อมูล session 
 
 // login สร้างเพื่อเรียนรู้การใช้ session
 app.post("/signin",(req,res,next)=>{
@@ -79,16 +85,6 @@ app.post("/signin",(req,res,next)=>{
     })
 })
 //---
-
-
-
-//เพื่อเข้าดูข้อมูล session 
-app.get('/session', (req, res) => {
-    let sess = req.session
-    console.log(sess)
-    res.status(200).send("username = " + sess.username)
-  })
-//จบเพื่อเข้าดูข้อมูล session 
 
 mongoose
     .connect("mongodb://localhost:27017/shopLN3",{useNewUrlParser:true,useUnifiedTopology:true}

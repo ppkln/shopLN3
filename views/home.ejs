@@ -14,7 +14,12 @@
         <div class="row">
             <div class="col-md-8 mx-auto text-center  ">
                 <div class="alert alert-primary">
-                    <h1 class="display-5">Welcome to Home page:  </h1>
+                    <h1 class="display-5">
+                    <h1 class="display-5">Welcome to Home page: 
+                    <% if(data.loginStatus){%>
+                        <%= data.sessionName %> </h1>
+                        <%= data.message %></h1>
+                    <% } %>
                 </div>
             </div>
         </div>

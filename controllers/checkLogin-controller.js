@@ -40,7 +40,12 @@ const checkLogin = (req,res,next)=>{
             console.log(req.session.usernameLN)
             console.log("Login ผ่าน")
             console.log(req.session)
-            res.render("home")
+            res.render("home",{data:{
+                message:"ผ่านการ Login แล้ว",
+                idUser: req.session.userId,
+                sessionName:req.session.usernameLN,
+                loginStatus:req.session.loginStatus
+            }})
         } else{
             console.log("Login ไม่ผ่าน",result.loginStatus)
             res.render("loginForm")

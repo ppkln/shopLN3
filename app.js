@@ -41,7 +41,7 @@ app.get("/",(req,res)=>{
 // login method
 app.get("/login",(req,res)=>{
     if(req.session.loginStatus){
-        res.render("home",{data:{
+        res.render("profile",{data:{
             message:"ผ่านการ Login แล้ว",
             idUser: req.session.userId,
             sessionName:"คุณ "+req.session.usernameLN,
@@ -69,10 +69,22 @@ app.get("/logout",(req,res)=>{
 
 
 //เพื่อเข้าดูข้อมูล session 
-app.get('/session', (req, res) => {
-    let sess = req.session
-    console.log("จากหน้า/session: ",sess)
-    res.status(200).send("username = " + sess.usernameLN)
+app.get('/profile', (req, res) => {
+    if(req.session.loginStatus){
+        res.render("profile",{data:{
+            message:"ผ่านการ Login แล้ว",
+            idUser: req.session.userId,
+            sessionName:"คุณ "+req.session.usernameLN,
+            loginStatus:req.session.loginStatus
+        }})
+    } else {
+        res.render("loginForm",{data:{
+            message:null,
+            idUser:null,
+            sessionName:null,
+            loginStatus:false
+        }})
+    }
   })
 //จบเพื่อเข้าดูข้อมูล session 
 
@@ -119,7 +131,7 @@ app.post("/signin",(req,res,next)=>{
             //--
             console.log("Login ผ่าน")
             console.log("จากฟังก์ชันcheckUser: ",req.session)
-            res.render("home",{data:{
+            res.render("profile",{data:{
                 message:"ผ่านการ Login แล้ว",
                 idUser: req.session.userId,
                 sessionName:"คุณ "+req.session.usernameLN,

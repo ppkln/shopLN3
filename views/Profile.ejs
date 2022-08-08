@@ -15,7 +15,12 @@
             <div class="col-md-8 mx-auto text-center  ">
                 <div class="alert alert-primary">
                     <h1 class="display-5">
-                    <h1 class="display-5">Welcome to Home page 
+                    <h1 class="display-5">  
+                    <% if(data.loginStatus){%>
+                        ผู้ที่กำลัง Login อยู่คือ :
+                        <%= data.sessionName %> </h1>
+                        <%= data.message %></h1>
+                    <% } %>
                 </div>
             </div>
         </div>

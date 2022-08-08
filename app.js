@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(myRoute)
 app.use(cookieParser())
 app.use(session({
-    secret: "secrctekeysession",
+    secret: "secrctekeysessionLN",
     resave: true,
     saveUninitialized: true
 }))
@@ -38,7 +38,7 @@ app.get("/",(req,res)=>{
         }})
     }
 })
-
+// login method
 app.get("/login",(req,res)=>{
     if(req.session.loginStatus){
         res.render("home",{data:{
@@ -56,19 +56,17 @@ app.get("/login",(req,res)=>{
         }})
     }
 })
-
-app.get("/logout",(req,res)=>{ 
-    req.session.destroy((err)=>{
-        console.log("ค่าของ session ",req.session)
-        console.log("ผ่านการกด LogOut")
-        res.render("loginForm",{data:{
-            message:null,
-            idUser:null,
-            sessionName:null,
-            loginStatus:false
-        }})
-    })
+// logout method
+app.get("/logout",(req,res)=>{
+    req.session.destroy();
+    res.render("home",{data:{
+        message:"ทำการ Logout สำเร็จ",
+        idUser:null,
+        sessionName:null,
+        loginStatus:false
+    }})
 })
+
 
 //เพื่อเข้าดูข้อมูล session 
 app.get('/session', (req, res) => {
@@ -77,6 +75,7 @@ app.get('/session', (req, res) => {
     res.status(200).send("username = " + sess.usernameLN)
   })
 //จบเพื่อเข้าดูข้อมูล session 
+
 
 // login สร้างเพื่อเรียนรู้การใช้ session
 app.post("/signin",(req,res,next)=>{
@@ -152,3 +151,6 @@ const port = process.env.port || 3000
 app.listen(port,function(){
     console.log("connected to server on port:",port)
 })
+
+// ข้อสังเกต ขอบเขตของตัวแปร session ที่สามารถทำงานได้คือภายในไฟล์ app.js  เท่านั้น  ทดลองเอาคำสั่งเกี่ยวกับ session ไปไว้ที่ไฟล์ myRoutes.jsและไฟล์ประเภท .ejs 
+// ผลที่ได้คือทำงานไม่ได้ มีแจ้ง error ที่คำสั่ง session ดังกล่าว

@@ -1,7 +1,6 @@
 const express = require("express")
 const app = express()
 const session = require("express-session")
-const cookieParser = require("cookie-parser")
 const myRoute = require("./routes/myRoutes")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
@@ -11,7 +10,6 @@ const bcrypt = require("bcryptjs")
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(myRoute)
-app.use(cookieParser())
 app.use(session({
     secret: "secrctekeysessionLN",
     resave: true,
